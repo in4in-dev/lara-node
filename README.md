@@ -1,2 +1,0 @@
-# lara-node
-Laravel --> nodejs
