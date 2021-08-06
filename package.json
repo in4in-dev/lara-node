@@ -1,0 +1,16 @@
+{
+  "name": "js_rest_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^16.4.12",
+    "express": "^4.17.1",
+    "typescript": "^4.3.5"
+  }
+}
