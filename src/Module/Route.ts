@@ -44,10 +44,7 @@ interface RouteClosureArguments{
     middlewares? : string[]
 }
 
-interface ItsConstructor{
-    new () : Controller
-}
-
+type ConstructorClass = new () => Controller;
 
 /////////////////////
 // Just easy route
@@ -168,7 +165,7 @@ class RouteClosure
         this.parentRouteClosure = parentRouteClosure;
     }
 
-    protected requestBinding(type : string, pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    protected requestBinding(type : string, pattern : string, controller : ConstructorClass, method : string) : RouteItem{
 
         let route = new RouteItem(pattern, this);
 
@@ -180,15 +177,15 @@ class RouteClosure
 
     }
 
-    public get(pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    public get(pattern : string, controller : ConstructorClass, method : string) : RouteItem{
         return this.requestBinding('get', pattern, controller, method);
     }
 
-    public post(pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    public post(pattern : string, controller : ConstructorClass, method : string) : RouteItem{
         return this.requestBinding('post', pattern, controller, method);
     }
 
-    public all(pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    public all(pattern : string, controller : ConstructorClass, method : string) : RouteItem{
         return this.requestBinding('all', pattern, controller, method);
     }
 
@@ -255,15 +252,15 @@ export class Route
     public static bindings : { [key:string] : (value : string) => any } = {};
     public static routes : { [key:string] : RouteItem } = {};
 
-    public static get(pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    public static get(pattern : string, controller : ConstructorClass, method : string) : RouteItem{
         return (new RouteClosure).get(pattern, controller, method);
     }
 
-    public static post(pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    public static post(pattern : string, controller : ConstructorClass, method : string) : RouteItem{
         return (new RouteClosure).post(pattern, controller, method);
     }
 
-    public static all(pattern : string, controller : ItsConstructor, method : string) : RouteItem{
+    public static all(pattern : string, controller : ConstructorClass, method : string) : RouteItem{
         return (new RouteClosure).all(pattern, controller, method);
     }
 

@@ -5,9 +5,7 @@ interface ValidatorArguments{
     1 : ValidatorArgumentsOptions
 }
 
-interface ValidatorTypeClass{
-    new (options : ValidatorArgumentsOptions) : ValidatorType
-}
+type ValidatorTypeClass = new (options : ValidatorArgumentsOptions) => ValidatorType;
 
 export interface ValidatorArgumentsOptions{
     required? : boolean,
