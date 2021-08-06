@@ -1,3 +1,16 @@
+///////////////////////////////////////////
+// You can return Redirect from controller
+//
+// new Redirect('/catalog');
+//
+// or just use
+//
+// Redirect.to('/catalog'); - redirect to url
+//
+// Redirect.route('catalog');
+// Redirect.route('product', { id : 25 }); - redirect to route
+////////////////////////////////////////////
+
 import {Route} from "./Route";
 
 export class Redirect

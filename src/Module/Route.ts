@@ -1,3 +1,34 @@
+/////////////////////////////////////////
+// Like at Laravel
+//
+// Route.get
+// Route.post
+// Route.all
+// Route.redirect
+// Route.group({options}, (route) => {
+//
+//      route.get(...)
+//      route.post(...)
+//      route.redirect(...)
+//      route.all(...)
+//
+//      route.group({options}, (route) => {
+//          ...
+//      });
+// })
+//
+// Option can contains middleware list, url-prefix, name-prefix etc.
+///////////////////////////////////////////
+// And more, u can bind route :param (only global) as here:
+//
+// For all urls contains :item, item will be replaced to getProductByCode return
+//
+// Route.bind('item', (value) => {
+//      return getProductByCode(value)';
+// })
+//
+///////////////////////////////////////////
+
 import {App} from "./App";
 import {Abort, HttpCodes} from "./Abort";
 import {Middleware} from "./Middleware";
