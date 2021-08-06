@@ -35,6 +35,9 @@ import {Middleware} from "./Middleware";
 import {Redirect} from "./Redirect";
 import {Controller} from "./Controller";
 
+////////////////////////
+// Route.group options
+////////////////////////
 interface RouteClosureArguments{
     prefix? : string,
     name? : string,
@@ -46,6 +49,9 @@ interface ItsConstructor{
 }
 
 
+/////////////////////
+// Just easy route
+////////////////////
 class RouteItem
 {
 
@@ -148,6 +154,9 @@ class RouteItem
 
 }
 
+/////////////////////
+// For route grouping
+////////////////////
 class RouteClosure
 {
 
@@ -236,6 +245,10 @@ class RouteClosure
 
 }
 
+
+////////////////////
+// Global interface
+////////////////////
 export class Route
 {
 
