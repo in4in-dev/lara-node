@@ -18,7 +18,17 @@
 // })
 //
 // Option can contains middleware list, url-prefix, name-prefix etc.
+//
 ///////////////////////////////////////////
+// Route-render example
+//
+// Route.get('/catalog/:item', ...).name('catalog-item');
+//
+// then u can get string url by item
+//
+// Route.render('catalog-item', { item : 'test' }) === '/catalog/test';
+//
+//////////////////////////////////////////
 // And more, u can bind route :param (only global) as here:
 //
 // For all urls contains :item, item will be replaced to getProductByCode return
