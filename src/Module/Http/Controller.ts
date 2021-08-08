@@ -9,13 +9,14 @@
 
 import {Abort, HttpCodes} from "./Abort";
 import {Middleware} from "./Middleware";
+import {Request} from "./Request";
 
 export class Controller
 {
 
     protected middlewares = [];
 
-    public execute(method : string, req : any){
+    public execute(method : string, req : Request){
 
         if(method in this){
             try{

@@ -1,6 +1,6 @@
-import {Controller} from "./Module/Controller";
-import {Abort} from "./Module/Abort";
-import {Redirect} from "./Module/Redirect";
+import {Controller} from "../Module/Http/Controller";
+import {Redirect} from "../Module/Http/Redirect";
+import {Request} from "../Module/Http/Request";
 
 export class TestController extends Controller{
 
@@ -11,12 +11,12 @@ export class TestController extends Controller{
         });
     }
 
-    public get(req : any)
+    public get(req : Request)
     {
         return {'item' : req.params.item_id};
     }
 
-    public index(req : any)
+    public index(req : Request)
     {
         return 'All ok my friend';
     }

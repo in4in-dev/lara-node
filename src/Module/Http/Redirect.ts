@@ -11,7 +11,7 @@
 // Redirect.route('product', { id : 25 }); - redirect to route
 ////////////////////////////////////////////
 
-import {Route} from "./Route";
+import {Route} from "../Routing/Route";
 
 export class Redirect
 {
