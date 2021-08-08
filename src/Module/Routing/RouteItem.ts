@@ -8,6 +8,7 @@ import {Abort, HttpCodes} from "../Http/Abort";
 import {Middleware} from "../Http/Middleware";
 import {App} from "../App";
 import {Redirect} from "../Http/Redirect";
+import {ExpressResponse} from "../Express/ExpressResponse";
 
 export class RouteItem
 {
@@ -77,7 +78,7 @@ export class RouteItem
         let url = this.getUrl();
         let middlewares = this.getMiddlewares();
 
-        App.$express[type](url, (req : ExpressRequest, res : any) => {
+        App.$express[type](url, (req : ExpressRequest, res : ExpressResponse) => {
 
             let response: any;
 
