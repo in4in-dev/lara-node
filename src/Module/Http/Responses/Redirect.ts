@@ -15,12 +15,13 @@ import {Response} from "../Response";
 import {Route} from "../../Routing";
 import {ExpressResponse} from "../../Express/ExpressResponse";
 
-export class Redirect implements Response
+export class Redirect extends Response
 {
 
     public url : string;
 
     constructor(url : string) {
+        super();
         this.url = url;
     }
 

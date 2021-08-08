@@ -6,13 +6,14 @@
 import {Response} from "../Response";
 import {ExpressResponse} from "../../Express/ExpressResponse";
 
-export class Abort implements Response
+export class Abort extends Response
 {
 
     public status : number;
     public message : string;
 
     constructor(status : number, message : string = "") {
+        super();
         this.status = status;
         this.message = message;
     }

@@ -1,5 +1,5 @@
 import {ExpressResponse} from "../Express/ExpressResponse";
 
-export interface Response{
-    answer(res : ExpressResponse) : void;
+export abstract class Response{
+    public abstract answer(res : ExpressResponse) : void;
 }

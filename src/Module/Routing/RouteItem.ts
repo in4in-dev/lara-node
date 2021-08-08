@@ -3,11 +3,12 @@
 ////////////////////
 import {App} from "../App";
 import {Route, RouteClosure} from "./";
-import {HttpCodes, Middleware} from "../Http";
-import {Redirect, Abort} from "../Http/Responses";
+import {HttpCodes, Middleware, Response} from "../Http";
+import {Redirect, Abort, Plain, Json} from "../Http/Responses";
 
 import {ExpressRequest} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
+import {inspect} from "util";
 
 export class RouteItem
 {
@@ -83,24 +84,30 @@ export class RouteItem
 
             try{
                 response = Middleware.use(middlewares) || callback(req);
+
+                if(!response){
+                    response = new Plain('');
+                }else if(!(response instanceof Response)){
+
+                    if(typeof response === 'object'){
+                        response = new Json(response);
+                    }else{
+                        response = new Plain(response);
+                    }
+
+                }
+
             }catch(e) {
-                response = new Abort(HttpCodes.SERVER_ERROR, (typeof e === 'object' ? e.message : e).toString());
-            }
 
-            if(response instanceof Abort) {
-                res.status(response.status).send(response.message);
-            }else if(response instanceof Redirect){
-                res.redirect(response.url);
-            }else{
+                response = e;
 
-                if(typeof response === 'object'){
-                    res.json(response);
-                }else{
-                    res.send(response.toString());
+                if(!(response instanceof Response)){
+                    response = new Abort(HttpCodes.SERVER_ERROR, String(e));
                 }
 
             }
 
+            response.answer(res);
             res.end();
 
         });

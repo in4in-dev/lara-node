@@ -1,11 +1,12 @@
 import {Response} from "../Response";
 import {ExpressResponse} from "../../Express/ExpressResponse";
 
-export class Plain implements Response{
+export class Plain extends Response{
 
     protected value : string;
 
     constructor(value : any) {
+        super();
         this.value = String(value);
     }
 
