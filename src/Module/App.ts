@@ -4,6 +4,8 @@
 //// App.start(port)
 /////////////////////////////////////////////////////////////
 
+import {Session} from "./Http/Session";
+
 const express = require('express');
 
 export class App{

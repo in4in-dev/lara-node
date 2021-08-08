@@ -19,7 +19,11 @@ export class Abort extends Response
     }
 
     public answer(res : ExpressResponse){
-        res.status(this.status).send(this.message);
+        res.status(this.status);
+
+        if(this.message){
+            res.send(this.message);
+        }
     }
 
 

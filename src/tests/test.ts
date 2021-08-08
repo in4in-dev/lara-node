@@ -1,7 +1,7 @@
 import {App} from "../Module/App";
-import {Middleware} from "../Module/Http/Middleware";
-import {Abort, HttpCodes} from "../Module/Http/Abort";
-import {Route} from "../Module/Routing/Route";
+import {Middleware, HttpCodes} from "../Module/Http";
+import {Abort} from "../Module/Http/Responses";
+import {Route} from "../Module/Routing";
 import {TestController} from "./TestController";
 
 App.start(3000);

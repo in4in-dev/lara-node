@@ -29,6 +29,7 @@ export interface ExpressResponse{
     json(obj : any) : any,
     jsonp(obj : any) : any,
     location(path : string) : any,
+    render(view : string, ...args : any[]) : any,
 
     append(...args : any[]) : any,
     attachment(...args : any[]) : any,
@@ -36,6 +37,5 @@ export interface ExpressResponse{
     end(...args : any[]) : any,
     format(...args : any[]) : any,
     redirect(...args : any[]) : any,
-    render(...args : any[]) : any,
     sendFile(...args : any[]) : any
 }

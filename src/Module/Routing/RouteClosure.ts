@@ -1,11 +1,12 @@
 /////////////////////
 // For route grouping
 ////////////////////
-import {RouteClosureArguments, RouteItem} from "./";
+import {Route, RouteClosureArguments, RouteItem} from "./";
 
 import {Redirect} from "../Http/Responses";
-import {ExpressRequest} from "../Express/ExpressRequest";
-import {Request, Controller} from "../Http";
+import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
+import {Request, Controller, Response} from "../Http";
+import {ExpressResponse} from "../Express/ExpressResponse";
 
 export class RouteClosure
 {
@@ -22,8 +23,31 @@ export class RouteClosure
 
         let route = new RouteItem(pattern, this);
 
-        route.setup(type, (req : ExpressRequest) => {
-            return (new controller).execute(method, new Request(req));
+        route.setup(type, (req : ExpressRequest, res : ExpressResponse) => {
+
+            let bindingParams : ExpressRequestParams = {};
+
+            for(let name in req.params){
+
+                let value = req.params[name];
+
+                if(name in Route.$bindings){
+
+                    value = Route.$bindings[name](value);
+
+                    if(value instanceof Response){
+                        return value;
+                    }
+
+                }
+
+                bindingParams[name] = value;
+
+            }
+
+            return (new controller).execute(method, new Request(req, res, bindingParams));
+
+
         });
 
         return route;

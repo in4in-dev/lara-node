@@ -3,12 +3,13 @@
 ////////////////////
 import {App} from "../App";
 import {Route, RouteClosure} from "./";
-import {HttpCodes, Middleware, Response} from "../Http";
+import {HttpCodes, Middleware, Request, Response} from "../Http";
 import {Redirect, Abort, Plain, Json} from "../Http/Responses";
 
-import {ExpressRequest} from "../Express/ExpressRequest";
+import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
 import {inspect} from "util";
+import {Session} from "../Http/Session";
 
 export class RouteItem
 {
@@ -70,9 +71,10 @@ export class RouteItem
         Route.$routes[this.getParentName() + name] = this;
     }
 
+
     public setup(
         type : string,
-        callback : (req : ExpressRequest) => any
+        callback : (req : ExpressRequest, res : ExpressResponse) => any
     ){
 
         let url = this.getUrl();
@@ -81,9 +83,8 @@ export class RouteItem
         App.$express[type](url, (req : ExpressRequest, res : ExpressResponse) => {
 
             let response: any;
-
             try{
-                response = Middleware.use(middlewares) || callback(req);
+                response = Middleware.use(middlewares) || callback(req, res);
 
                 if(!response){
                     response = new Plain('');
@@ -106,6 +107,8 @@ export class RouteItem
                 }
 
             }
+
+            // request.session.flushOnce();
 
             response.answer(res);
             res.end();

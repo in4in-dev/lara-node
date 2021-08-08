@@ -1,20 +1,26 @@
-import {ExpressRequest, ExpressRequestCookies, ExpressRequestParams} from "../Express/ExpressRequest";
+import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
+import {ExpressResponse} from "../Express/ExpressResponse";
+import {Cookies} from "./Cookies";
 
 export class Request{
 
-    protected $request : ExpressRequest;
+    public readonly $request : ExpressRequest;
+    public readonly $response : ExpressResponse;
 
-    protected readonly isXhr : boolean;
-    protected readonly isSecure : boolean;
-    protected readonly ip : string;
-    protected readonly baseUrl : string;
-    protected readonly hostname : string;
-    protected readonly originalUrl : string;
-    protected readonly path : string;
-    protected readonly protocol : string;
+    public readonly isXhr : boolean;
+    public readonly isSecure : boolean;
+    public readonly ip : string;
+    public readonly baseUrl : string;
+    public readonly hostname : string;
+    public readonly originalUrl : string;
+    public readonly path : string;
+    public readonly protocol : string;
+    public readonly cookies : Cookies;
+    public readonly params : ExpressRequestParams;
 
-    constructor(req : ExpressRequest) {
+    constructor(req : ExpressRequest, res : ExpressResponse, bindingParams : ExpressRequestParams) {
        this.$request = req;
+       this.$response = res;
 
        this.path     = req.path;
        this.isXhr    = req.xhr;
@@ -24,10 +30,9 @@ export class Request{
        this.hostname = req.hostname;
        this.protocol = req.protocol;
        this.originalUrl = req.originalUrl;
-    }
+       this.params = bindingParams;
 
-    public get cookies() : ExpressRequestCookies {
-        return Object.assign({}, this.$request.cookies);
+       this.cookies = new Cookies(res, this.$request.cookies);
     }
 
     public get ips() : string[]{
@@ -38,7 +43,7 @@ export class Request{
         return this.$request.subdomains.slice();
     }
 
-    public get params() : ExpressRequestParams {
+    public get originalParams() : ExpressRequestParams {
         return Object.assign({}, this.$request.params);
     }
 

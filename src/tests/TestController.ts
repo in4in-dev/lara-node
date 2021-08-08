@@ -1,6 +1,5 @@
-import {Controller} from "../Module/Http/Controller";
-import {Redirect} from "../Module/Http/Redirect";
-import {Request} from "../Module/Http/Request";
+import {Controller, Request} from "../Module/Http";
+import {Redirect} from "../Module/Http/Responses";
 
 export class TestController extends Controller{
 
