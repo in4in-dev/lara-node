@@ -1,13 +1,12 @@
 /////////////////////
 // Just easy route
 ////////////////////
-import {Route} from "./Route";
-import {RouteClosure} from "./RouteClosure";
-import {ExpressRequest} from "../Express/ExpressRequest";
-import {Abort, HttpCodes} from "../Http/Abort";
-import {Middleware} from "../Http/Middleware";
 import {App} from "../App";
-import {Redirect} from "../Http/Redirect";
+import {Route, RouteClosure} from "./";
+import {HttpCodes, Middleware} from "../Http";
+import {Redirect, Abort} from "../Http/Responses";
+
+import {ExpressRequest} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
 
 export class RouteItem
@@ -67,7 +66,7 @@ export class RouteItem
 
     public name(name : string)
     {
-        Route.routes[this.getParentName() + name] = this;
+        Route.$routes[this.getParentName() + name] = this;
     }
 
     public setup(

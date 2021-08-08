@@ -39,11 +39,9 @@
 //
 ///////////////////////////////////////////
 
-import {Abort, HttpCodes} from "../Http/Abort";
-import {Controller} from "../Http/Controller";
-import {RouteItem} from "./RouteItem";
-import {RouteClosure} from "./RouteClosure";
-import {RouteClosureArguments} from "./RouteClosureArguments";
+import {RouteItem, RouteClosureArguments, RouteClosure} from "./";
+import {Controller, HttpCodes} from "../Http";
+import {Abort} from "../Http/Responses";
 
 ////////////////////
 // Global interface
@@ -51,8 +49,8 @@ import {RouteClosureArguments} from "./RouteClosureArguments";
 export class Route
 {
 
-    public static bindings : { [key:string] : (value : string) => any } = {};
-    public static routes : { [key:string] : RouteItem } = {};
+    public static $bindings : { [key:string] : (value : string) => any } = {};
+    public static $routes : { [key:string] : RouteItem } = {};
 
     public static get(pattern : string, controller : typeof Controller, method : string) : RouteItem{
         return (new RouteClosure).get(pattern, controller, method);
@@ -71,7 +69,7 @@ export class Route
     }
 
     public static bind(keyword : string, fn : (value : string) => any) : void{
-        Route.bindings[keyword] = fn;
+        Route.$bindings[keyword] = fn;
     }
 
     public static redirect(pattern : string, to : string) : void{
@@ -81,8 +79,8 @@ export class Route
     public static render(name : string, options : { [key:string] : string } = {}) : string
     {
 
-        if(name in Route.routes){
-            return Route.routes[name].getRenderUrl(options);
+        if(name in Route.$routes){
+            return Route.$routes[name].getRenderUrl(options);
         }
 
         throw new Abort(HttpCodes.SERVER_ERROR, `Route "${name}" is not defined`);

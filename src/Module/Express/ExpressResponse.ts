@@ -9,7 +9,8 @@ export interface ExpressCookieOptions{
     path? : string,
     secure? : boolean,
     signed? : boolean,
-    sameSite? : boolean | string
+    sameSite? : boolean | string,
+    [propName: string]: any
 }
 
 export interface ExpressResponse{

@@ -7,9 +7,8 @@
 // class TestController extends Controller{}
 /////////////////////////////////////////////
 
-import {Abort, HttpCodes} from "./Abort";
-import {Middleware} from "./Middleware";
-import {Request} from "./Request";
+import {HttpCodes, Middleware, Request} from "./";
+import {Abort} from "./Responses";
 
 export class Controller
 {

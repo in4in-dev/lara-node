@@ -11,15 +11,21 @@
 // Redirect.route('product', { id : 25 }); - redirect to route
 ////////////////////////////////////////////
 
-import {Route} from "../Routing/Route";
+import {Response} from "../Response";
+import {Route} from "../../Routing";
+import {ExpressResponse} from "../../Express/ExpressResponse";
 
-export class Redirect
+export class Redirect implements Response
 {
 
     public url : string;
 
     constructor(url : string) {
         this.url = url;
+    }
+
+    public answer(res: ExpressResponse) {
+        res.redirect(this.url);
     }
 
     public static route(name : string, options : { [key:string] : string } = {}) : Redirect

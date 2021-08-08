@@ -18,6 +18,7 @@ export interface ExpressRequest{
     readonly signedCookies : ExpressRequestCookies,
     readonly subdomains : string[],
     readonly xhr : boolean,
+    [propName: string]: any,
 
     accepts(types : string | string[]) : any,
     get(field : string) : string | undefined,

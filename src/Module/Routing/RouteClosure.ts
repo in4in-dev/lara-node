@@ -1,12 +1,11 @@
 /////////////////////
 // For route grouping
 ////////////////////
-import {RouteClosureArguments} from "./RouteClosureArguments";
-import {RouteItem} from "./RouteItem";
-import {Redirect} from "../Http/Redirect";
-import {Controller} from "../Http/Controller";
+import {RouteClosureArguments, RouteItem} from "./";
+
+import {Redirect} from "../Http/Responses";
 import {ExpressRequest} from "../Express/ExpressRequest";
-import {Request} from "../Http/Request";
+import {Request, Controller} from "../Http";
 
 export class RouteClosure
 {

@@ -1,20 +1,3 @@
-//////////////////////////////////////////////////////
-// new Abort(404, 'Not found');
-// new Abort(500, 'Something not working');
-//////////////////////////////////////////////////////
-
-export class Abort
-{
-
-    public status : number;
-    public message : string;
-
-    constructor(status : number, message : string = "") {
-        this.status = status;
-        this.message = message;
-    }
-}
-
 export enum HttpCodes{
     CONTINUE = 100,
     SWITCHING_PROTOCOLS = 101,
