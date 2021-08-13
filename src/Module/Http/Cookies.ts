@@ -17,14 +17,14 @@ export class Cookies{
             return this.has(name) ? this.cookies[name] : null;
         }
 
-        return Object.assign({}, this.cookies);
+        return { ...this.cookies };
     }
 
-    public delete(name : string, options : ExpressRequestCookies = {}){
+    public delete(name : string, options : ExpressCookieOptions = {}){
         this.$response.clearCookie(name, options);
     }
 
-    public set(name : string, value : any, options : ExpressRequestCookies = {}){
+    public set(name : string, value : any, options : ExpressCookieOptions = {}){
         this.$response.cookie(name, value, options);
     }
 
@@ -33,9 +33,7 @@ export class Cookies{
         let time = Date.now() + (1000 * 60 * 60 * 24 * 365);
 
         this.set(name, value,
-            Object.assign({}, options, {
-                expires : new Date(time)
-            })
+            { ...options, expires : new Date(time) }
         );
 
     }
@@ -43,9 +41,7 @@ export class Cookies{
     public session(name : string, value : any, options : ExpressCookieOptions = {}){
 
         this.set(name, value,
-            Object.assign({}, options, {
-                expires : 0
-            })
+            { ...options, expires : 0 }
         );
 
     }

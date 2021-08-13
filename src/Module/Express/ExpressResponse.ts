@@ -3,7 +3,7 @@ export type ExpressResponseLocals = { [key:string] : any };
 export interface ExpressCookieOptions{
     domain? : string,
     encode? : (value : string) => {},
-    expires? : Date,
+    expires? : Date | number,
     httpOnly? : boolean,
     maxAge? : number,
     path? : string,

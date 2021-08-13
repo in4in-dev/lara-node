@@ -3,6 +3,7 @@ import {Middleware, HttpCodes} from "../Module/Http";
 import {Abort} from "../Module/Http/Responses";
 import {Route} from "../Module/Routing";
 import {TestController} from "./TestController";
+import {Table} from "../Module/Database/Migrations/Table";
 
 App.start(3000);
 
@@ -35,3 +36,12 @@ Route.group({
     });
 
 });
+
+
+Table.create('users', (table : Table) => {
+
+    table.varchar('username');
+    table.integer('balance', 10);
+
+});
+

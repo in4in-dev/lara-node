@@ -44,13 +44,13 @@ export class Request{
     }
 
     public get originalParams() : ExpressRequestParams {
-        return Object.assign({}, this.$request.params);
+        return { ...this.$request.params };
     }
 
     public get(name : string = '', def : any = null) : any {
 
         if(!name){
-            return Object.assign({}, this.$request.query);
+            return { ...this.$request.query };
         }
 
         if(name in this.$request.query){
