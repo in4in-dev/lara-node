@@ -17,7 +17,16 @@ export class TestController extends Controller{
 
     public index(req : Request)
     {
-        return 'All ok my friend';
+
+        let c = req.session.get('dickenson') || 1;
+
+        console.log(c);
+        console.log(req.session.get('dickenson' + (c - 1)));
+        console.log(req.session.get('dickenson' + c));
+
+        req.session.set('dickenson', c + 1);
+        req.session.once('dickenson' + c, 223);
+
     }
 
 }

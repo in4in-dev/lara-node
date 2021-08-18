@@ -47,6 +47,7 @@ export class RouteClosure
 
             return (new controller).execute(method, new Request(req, res, bindingParams));
 
+            // $request.session.flushOnce();
 
         });
 

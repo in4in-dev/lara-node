@@ -8,6 +8,7 @@ import {Session} from "./Http/Session";
 import {DB} from "./Database/DB";
 
 const express = require('express');
+const expressSession = require('express-session');
 
 export class App{
 
@@ -27,6 +28,12 @@ export class App{
         let app = express();
 
         app.use(express.json());
+        app.use(expressSession({
+            secret : 'laranode',
+            resave : true,
+            saveUninitialized : true,
+            cookie: { maxAge: 60000 }
+        }));
         app.use(express.urlencoded({ extended: true }));
 
         app.listen(port);

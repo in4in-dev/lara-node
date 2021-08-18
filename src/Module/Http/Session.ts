@@ -1,55 +1,131 @@
-import {ExpressResponse} from "../Express/ExpressResponse";
+import {ExpressRequest} from "../Express/ExpressRequest";
+import {ExpressSession} from "../Express/ExpressSession";
 
-interface SystemOnceStorage{
-    [key:string] : any
+type SessionStore = { [key:string] : any };
+
+class TempSessionStorage{
+
+    protected newData : SessionStore = {};
+    protected oldData : SessionStore;
+
+    constructor(values : SessionStore) {
+        this.oldData = values;
+    }
+
+    public has(key : string){
+        return (key in this.newData) || (key in this.oldData);
+    }
+
+    public set(key : string, value : any){
+        this.clear(key);
+        this.newData[key] = value;
+    }
+
+    public clear(key : string){
+        delete this.newData[key];
+        delete this.oldData[key];
+    }
+
+    public get(key : string){
+
+        return key in this.newData
+            ? this.newData[key]
+            : (key in this.oldData
+                ? this.oldData[key]
+                : null
+            );
+
+    }
+
+    public all(){
+        return { ...this.oldData, ...this.newData }
+    }
+
+    toJSON(){
+        return this.newData;
+    }
+
 }
 
 export class Session{
 
-    public static readonly USER_SYSTEM_STORAGE = 'system';
-    public static readonly USER_ONCE_STORAGE = 'system_once';
+    protected static TEMP_STORE = '$$_tempStore$$';
+    protected static STORE = '$$_store$$';
 
-    protected systemOnceStorage : SystemOnceStorage;
+    protected session : ExpressSession;
 
-    constructor(res : ExpressResponse) {
-        this.systemOnceStorage = this.get(Session.USER_ONCE_STORAGE, true);
+    protected store : SessionStore;
+    protected tempStore : TempSessionStorage;
+
+    constructor(req : ExpressRequest) {
+        this.session = req.session!;
+
+        this.store = this.getStore();
+        this.tempStore = new TempSessionStorage(this.getTempStore());
+
+        //Update temp
+        this.saveStores();
     }
 
-    public set(key : string, value : any) : void{
+    protected getStore() : SessionStore{
 
-        if(typeof value === 'object'){
-            return this.set(key, JSON.stringify(value));
+        if(!(Session.STORE in this.session)){
+            this.session[Session.STORE] = {};
         }
 
-        value = String(value);
+        return this.session[Session.STORE];
+    }
 
-        //set
+    protected getTempStore() : SessionStore{
+
+        if(!(Session.TEMP_STORE in this.session)){
+            this.session[Session.TEMP_STORE] = {};
+        }
+
+        return this.session[Session.TEMP_STORE];
 
     }
 
-    public setOnce(key : string, value : any){
-        this.systemOnceStorage[key] = value;
-        this.set(Session.USER_ONCE_STORAGE, this.systemOnceStorage);
+    protected saveStores(){
+        this.session[Session.STORE] = this.store;
+        this.session[Session.TEMP_STORE] = this.tempStore;
     }
 
-    public has(key : string) : boolean{
-        //has
-        return false;
+    public set(key : string, value : any){
+        this.clear(key);
+        this.store[key] = value;
+
+        this.saveStores();
     }
 
-    public get(key : string, isJson : boolean = false) : any {
+    public once(key : string, value : any){
+        this.clear(key);
+        this.tempStore.set(key, value);
 
-        if(this.has(key)){
-            //get
+        this.saveStores();
+    }
+
+    public get(key : string) : any {
+
+        if(key in this.store) {
+            return this.store[key];
+        }else if(this.tempStore.has(key)){
+            return this.tempStore.get(key);
         }
 
         return null;
 
     }
 
-    public flushOnce(){
-        this.systemOnceStorage = {};
-        this.set(Session.USER_ONCE_STORAGE, this.systemOnceStorage);
+    public all() : { [key:string] : any }{
+        return { ...this.store, ...this.tempStore.all() }
+    }
+
+    public clear(key : string){
+        delete this.store[key];
+        this.tempStore.clear(key);
+
+        this.saveStores();
     }
 
 }

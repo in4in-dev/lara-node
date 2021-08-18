@@ -1,0 +1,1 @@
+export type ExpressSession = { [key:string] : any };

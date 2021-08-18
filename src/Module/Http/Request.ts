@@ -1,6 +1,7 @@
 import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
 import {Cookies} from "./Cookies";
+import {Session} from "./Session";
 
 export class Request{
 
@@ -16,6 +17,7 @@ export class Request{
     public readonly path : string;
     public readonly protocol : string;
     public readonly cookies : Cookies;
+    public readonly session : Session;
     public readonly params : ExpressRequestParams;
 
     constructor(req : ExpressRequest, res : ExpressResponse, bindingParams : ExpressRequestParams) {
@@ -32,7 +34,8 @@ export class Request{
        this.originalUrl = req.originalUrl;
        this.params = bindingParams;
 
-       this.cookies = new Cookies(res, this.$request.cookies);
+       this.cookies = new Cookies(res, req.cookies);
+       this.session = new Session(req);
     }
 
     public get ips() : string[]{

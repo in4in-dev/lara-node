@@ -8,17 +8,8 @@ import {Table} from "../Module/Database/Migrations/Table";
 App.initDatabase('localhost', 'in4in', 'in4libjs', 'laranode');
 App.start(3000);
 
-Middleware.create('test', () => {
-    return false;
-});
-
-Middleware.create('test2', () => {
-    return new Abort(HttpCodes.SERVER_ERROR, 'Error middleware');
-});
-
 Route.group({
     'prefix' : '/catalog',
-    'middlewares' : ['test'],
     'name' : 'catalog'
 },(route) => {
 
@@ -26,8 +17,7 @@ Route.group({
 
     route.group({
         'prefix' : '/:item_id',
-        'name' : '.item',
-        'middlewares' : ['test2']
+        'name' : '.item'
     }, route => {
 
         route.redirect('/redirect', '/catalog/test');

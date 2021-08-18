@@ -1,3 +1,5 @@
+import {ExpressSession} from "./ExpressSession";
+
 export type ExpressRequestCookies = { [key:string] : string };
 export type ExpressRequestParams = { [key:string] : any };
 
@@ -18,6 +20,7 @@ export interface ExpressRequest{
     readonly signedCookies : ExpressRequestCookies,
     readonly subdomains : string[],
     readonly xhr : boolean,
+    readonly session? : ExpressSession,
     [propName: string]: any,
 
     accepts(types : string | string[]) : any,
