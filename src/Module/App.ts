@@ -5,12 +5,22 @@
 /////////////////////////////////////////////////////////////
 
 import {Session} from "./Http/Session";
+import {DB} from "./Database/DB";
 
 const express = require('express');
 
 export class App{
 
     public static $express : any;
+
+    public static initDatabase(
+        host : string,
+        user : string,
+        password : string,
+        database : string
+    ) : Promise<boolean>{
+        return DB.connection(host, user, password, database);
+    }
 
     public static start(port : number = 3000){
 

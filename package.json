@@ -11,6 +11,11 @@
   "dependencies": {
     "@types/node": "^16.4.12",
     "express": "^4.17.1",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5",
     "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/validator": "^13.6.3"
   }
 }

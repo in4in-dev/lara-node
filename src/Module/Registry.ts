@@ -15,7 +15,7 @@ export class Registry
     }
 
     public static get(name : string){
-        return ('name' in Registry.dump) ? Registry.dump[name] : null;
+        return (name in Registry.dump) ? Registry.dump[name] : null;
     }
 
 }

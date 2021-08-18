@@ -5,6 +5,7 @@ import {Route} from "../Module/Routing";
 import {TestController} from "./TestController";
 import {Table} from "../Module/Database/Migrations/Table";
 
+App.initDatabase('localhost', 'in4in', 'in4libjs', 'laranode');
 App.start(3000);
 
 Middleware.create('test', () => {
@@ -36,12 +37,3 @@ Route.group({
     });
 
 });
-
-
-Table.create('users', (table : Table) => {
-
-    table.varchar('username');
-    table.integer('balance', 10);
-
-});
-
