@@ -8,10 +8,6 @@ export class TableColumn{
     protected defaultValue : any = null;
     protected commentText : string = '';
 
-    protected uniqueKey : string | boolean = false;
-    protected indexKey : string | boolean = false;
-
-
     public name : string;
     public type : any;
 
@@ -20,18 +16,8 @@ export class TableColumn{
         this.type = (params.length ? type(...params) : type);
     }
 
-    public unique(name : string = '') : TableColumn{
-        this.uniqueKey = name || true;
-        return this;
-    }
-
     public comment(text : string){
         this.commentText = text;
-    }
-
-    public index(name : string = '') : TableColumn{
-        this.indexKey = name || true;
-        return this;
     }
 
     public default(value : any) : TableColumn{
@@ -60,19 +46,12 @@ export class TableColumn{
         let result : SquelizeColumn  = {
             'type' : this.type,
             'allowNull' : this.canBeNull,
-            'primaryKey' : this.primaryKey
+            'primaryKey' : this.primaryKey,
+            'autoIncrement' : this.autoIncrement
         };
 
         if(this.defaultValue){
             result.defaultValue = this.defaultValue;
-        }
-
-        if(this.uniqueKey){
-            result.unique = this.uniqueKey;
-        }
-
-        if(this.indexKey){
-            result.index = this.indexKey;
         }
 
         if(this.commentText){

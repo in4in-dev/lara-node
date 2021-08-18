@@ -6,10 +6,11 @@ import {Registry} from "../../Registry";
 import {TableColumn} from "./TableColumn";
 import Types from "./Types";
 import {SquelizeColumn} from "./Sequelize/SquelizeColumn";
+import {SequelizeIndex} from "./Sequelize/SquelizeIndex";
 import {DB} from "../DB";
+import TableIndex from "./TableIndex";
 
 export type TableColumnsList = { [key:string] : TableColumn };
-
 
 export class Table{
 
@@ -17,6 +18,7 @@ export class Table{
 
     protected columns : TableColumnsList;
     protected createdColumns : TableColumnsList = {};
+    protected createdIndexes : TableIndex[] = [];
 
     protected timestamped : boolean = false;
 
@@ -28,6 +30,7 @@ export class Table{
     public async create(){
 
         let columns : { [key:string] : SquelizeColumn } = {};
+        let indexes : SequelizeIndex[] = this.createdIndexes.map(i => i.toSequelize());
 
         for(let c in this.createdColumns){
             columns[c] = this.createdColumns[c].toSequelize();
@@ -35,7 +38,7 @@ export class Table{
 
         let conn = DB.getConnection();
 
-        conn.define(this.name, columns, { tableName : this.name });
+        conn.define(this.name, columns, { tableName : this.name, indexes });
 
         return await conn.sync();
 
@@ -43,11 +46,9 @@ export class Table{
 
     public index(col : string | string[], name : string = '') : Table{
 
-        if(col instanceof Array){
-            col.forEach(c => this.index(c, name));
-        }else{
-            this.createdColumns[col]?.index(name);
-        }
+        this.createdIndexes.push(
+            new TableIndex(col instanceof Array ? col : [col], false, name)
+        );
 
         return this;
 
@@ -55,11 +56,9 @@ export class Table{
 
     public unique(col : string | string[], name : string = '') : Table{
 
-        if(col instanceof Array){
-            col.forEach(c => this.unique(c, name));
-        }else{
-            this.createdColumns[col]?.unique(name);
-        }
+        this.createdIndexes.push(
+            new TableIndex(col instanceof Array ? col : [col], true, name)
+        );
 
         return this;
 
@@ -72,6 +71,10 @@ export class Table{
     public primary(col : string) : Table{
         this.createdColumns[col]?.primary();
         return this;
+    }
+
+    public foreign(col_from : string, table : string, col_to : string){
+
     }
 
     protected addColumn(name : string, type : any, ...args : any[]): TableColumn {
