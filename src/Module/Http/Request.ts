@@ -1,7 +1,7 @@
 import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
 import {Cookies} from "./Cookies";
-import {Session} from "./Session";
+import {Session} from "./Session/Session";
 
 export class Request{
 
