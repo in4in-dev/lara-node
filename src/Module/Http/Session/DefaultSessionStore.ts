@@ -38,4 +38,8 @@ export class DefaultSessionStore implements SessionStore{
         return this.data;
     }
 
+    public clearAll(){
+        this.data = {};
+    }
+
 }

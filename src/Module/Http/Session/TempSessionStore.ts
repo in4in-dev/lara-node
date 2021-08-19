@@ -45,4 +45,9 @@ export class TempSessionStore implements SessionStore{
         return this.newData;
     }
 
+    public clearAll(){
+        this.oldData = {};
+        this.newData = {};
+    }
+
 }

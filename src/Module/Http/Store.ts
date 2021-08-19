@@ -3,4 +3,5 @@ export interface Store{
     clear(key : string) : void;
     set(key : string, value : any) : void;
     has(key : string) : boolean;
+    clearAll() : void;
 }
