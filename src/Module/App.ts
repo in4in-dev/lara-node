@@ -4,7 +4,6 @@
 //// App.start(port)
 /////////////////////////////////////////////////////////////
 
-import {Session} from "./Http/Session";
 import {DB} from "./Database/DB";
 
 const express = require('express');

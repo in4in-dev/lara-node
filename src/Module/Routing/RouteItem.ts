@@ -9,7 +9,7 @@ import {Redirect, Abort, Plain, Json} from "../Http/Responses";
 import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
 import {inspect} from "util";
-import {Session} from "../Http/Session";
+import {Session} from "../Http/Session/Session";
 
 export class RouteItem
 {
