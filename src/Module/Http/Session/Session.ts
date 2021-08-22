@@ -62,8 +62,8 @@ export class Session{
         return this.store.has(key) || this.tempStore.has(key);
     }
 
-    public get(key : string) : any | null {
-        return this.store.get(key) || this.tempStore.get(key);
+    public get(key : string, def : any) : any | null {
+        return this.store.get(key) || this.tempStore.get(key) || def;
     }
 
     public all() : SessionContainer{

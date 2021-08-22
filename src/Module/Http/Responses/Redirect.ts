@@ -29,6 +29,14 @@ export class Redirect extends Response
         res.redirect(this.url);
     }
 
+    // public static back() : Redirect
+    // {
+    // }
+
+    // public static action() : Redirect
+    // {
+    // }
+
     public static route(name : string, options : { [key:string] : string } = {}) : Redirect
     {
         return new Redirect(Route.render(name, options));

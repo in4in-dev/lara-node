@@ -2,6 +2,7 @@ import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
 import {Cookies} from "./Cookies";
 import {Session} from "./Session/Session";
+import {Redirect} from "./Responses";
 
 export class Request{
 
@@ -78,6 +79,14 @@ export class Request{
 
         return def;
 
+    }
+
+    public getHeader(field : string) : string | undefined{
+        return this.$request.get(field);
+    }
+
+    public setHeader(field : string, value : string){
+        this.$response.set(field, value);
     }
 
     public accepts(types : string | string[]) : any
