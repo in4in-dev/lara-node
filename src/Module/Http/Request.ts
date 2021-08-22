@@ -39,6 +39,10 @@ export class Request{
        this.session = new Session(req);
     }
 
+    public status(status : number){
+        this.$response.status(status);
+    }
+
     public get ips() : string[]{
         return this.$request.ips.slice();
     }
