@@ -29,7 +29,7 @@ export class RouteClosure
 
             for(let name in req.params){
 
-                let value = req.params[name];
+                let value : any = req.params[name];
 
                 if(name in Route.$bindings){
 

@@ -6,8 +6,11 @@
 
 import {DB} from "./Database/DB";
 
-const express = require('express');
-const expressSession = require('express-session');
+import express from 'express';
+import expressSession from 'express-session';
+import fileUpload from 'express-fileupload';
+import cookieParser from 'cookie-parser';
+import {Sequelize} from "sequelize";
 
 export class App{
 
@@ -18,8 +21,8 @@ export class App{
         user : string,
         password : string,
         database : string
-    ) : Promise<boolean>{
-        return DB.connection(host, user, password, database);
+    ) : Promise<Sequelize>{
+        return DB.createConnection(host, user, password, database);
     }
 
     public static start(port : number = 3000){
@@ -27,13 +30,23 @@ export class App{
         let app = express();
 
         app.use(express.json());
+
         app.use(expressSession({
             secret : 'laranode',
             resave : true,
             saveUninitialized : true,
             cookie: { maxAge: 60000 }
         }));
-        app.use(express.urlencoded({ extended: true }));
+
+        app.use(cookieParser());
+
+        app.use(express.urlencoded({
+            extended: true
+        }));
+
+        app.use(fileUpload({
+            uploadTimeout : 0
+        }));
 
         app.listen(port);
 

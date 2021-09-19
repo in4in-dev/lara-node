@@ -41,7 +41,7 @@ export class Cookies{
     public session(name : string, value : any, options : ExpressCookieOptions = {}){
 
         this.set(name, value,
-            { ...options, expires : 0 }
+            { ...options, expires : undefined }
         );
 
     }

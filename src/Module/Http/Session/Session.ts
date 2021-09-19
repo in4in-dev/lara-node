@@ -1,8 +1,7 @@
 import {SessionContainer, SessionStore} from "./SessionStore";
 import {DefaultSessionStore} from "./DefaultSessionStore";
 import {TempSessionStore} from "./TempSessionStore";
-import {ExpressSession} from "../../Express/ExpressSession";
-import {ExpressRequest} from "../../Express/ExpressRequest";
+import {ExpressRequest, ExpressSession} from "../../Express/ExpressRequest";
 
 export class Session{
 
@@ -15,7 +14,7 @@ export class Session{
     protected tempStore : SessionStore;
 
     constructor(req : ExpressRequest) {
-        this.session = req.session!;
+        this.session = req.session;
 
         this.store = this.getStore();
         this.tempStore = this.getTempStore();
@@ -62,7 +61,7 @@ export class Session{
         return this.store.has(key) || this.tempStore.has(key);
     }
 
-    public get(key : string, def : any) : any | null {
+    public get(key : string, def : any = null) : any | null {
         return this.store.get(key) || this.tempStore.get(key) || def;
     }
 

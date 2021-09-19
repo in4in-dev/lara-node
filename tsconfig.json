@@ -1,18 +1,18 @@
 {
+  "include": [
+    "./src/**/*"
+  ],
   "compilerOptions": {
-    "target": "es5",
+    "watch": true,
+    "target": "ES6",
     "module": "commonjs",
-    "lib": ["es6"],
     "allowJs": true,
-    "outDir": "build",
+    "outDir": "public",
     "rootDir": "src",
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "declaration": true
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "declaration": true,
+    "moduleResolution": "Node"
+  }
 }

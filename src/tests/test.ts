@@ -3,7 +3,6 @@ import {Middleware, HttpCodes} from "../Module/Http";
 import {Abort} from "../Module/Http/Responses";
 import {Route} from "../Module/Routing";
 import {TestController} from "./TestController";
-import {Table} from "../Module/Database/Migrations/Table";
 
 App.initDatabase('localhost', 'in4in', 'in4libjs', 'laranode');
 App.start(3000);

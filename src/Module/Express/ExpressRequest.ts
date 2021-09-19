@@ -1,32 +1,15 @@
-import {ExpressSession} from "./ExpressSession";
+import {Request} from "express";
+import {SessionData} from "express-session";
+import {FileArray} from 'express-fileupload';
+import {JSONCookies} from 'cookie-parser';
 
+export type ExpressRequest = Request;
 export type ExpressRequestCookies = { [key:string] : string };
 export type ExpressRequestParams = { [key:string] : any };
 
-export interface ExpressRequest{
-    readonly baseUrl : string,
-    readonly cookies : ExpressRequestCookies,
-    readonly body : any,
-    readonly hostname : string,
-    readonly ip : string,
-    readonly ips : string[],
-    readonly originalUrl : string,
-    readonly params : ExpressRequestParams,
-    readonly path : string,
-    readonly protocol : string,
-    readonly query : ExpressRequestParams,
-    readonly route : any,
-    readonly secure : boolean,
-    readonly signedCookies : ExpressRequestCookies,
-    readonly subdomains : string[],
-    readonly xhr : boolean,
-    readonly session? : ExpressSession,
-    [propName: string]: any,
-
-    accepts(types : string | string[]) : any,
-    get(field : string) : string | undefined,
-    is(type : string) : boolean,
-    acceptsCharsets(charset : string, ...args : any[]) : any,
-    acceptsEncodings(encoding : string, ...args : any[]) : any,
-    acceptsLanguages(lang : string, ...args : any[]) : any
+export type ExpressCookies = { [key:string] : string };
+export type ExpressFiles = FileArray;
+export interface ExpressSession extends SessionData {
+    [key:string] : any
 }
+

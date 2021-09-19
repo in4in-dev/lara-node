@@ -1,29 +1,29 @@
-let { Sequelize } = require('sequelize');
-
-import {Registry} from "../Registry";
+import {Sequelize} from "sequelize";
 
 export class DB{
 
+    protected static connection : Sequelize | null = null;
     protected static REGISTRY_KEY = 'sequelize_connection';
 
     public static getConnection(){
-        return Registry.get(DB.REGISTRY_KEY);
+        return this.connection;
     }
 
-    public static async connection(
+    public static async createConnection(
         host : string,
         user : string,
         password : string,
         database : string,
-        dialect = 'mysql'
-    ) : Promise<boolean> {
+        dialect : any = 'mysql',
+        options : { [key:string] : any } = {}
+    ) : Promise<Sequelize> {
 
-        let conn = new Sequelize(database, user, password, { host, dialect });
+        let conn = new Sequelize(database, user, password, { host, dialect, ...options });
         await conn.authenticate();
 
-        Registry.set(DB.REGISTRY_KEY, conn);
+        this.connection = conn;
 
-        return true;
+        return conn;
 
     }
 

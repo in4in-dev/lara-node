@@ -95,7 +95,7 @@ export class Request{
 
     public accepts(types : string | string[]) : any
     {
-        return this.$request.accepts(types);
+        return this.$request.accepts(<any>types);
     }
 
 }
