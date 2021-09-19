@@ -1,6 +1,6 @@
 import {ExpressRequest, ExpressRequestParams} from "../Express/ExpressRequest";
 import {ExpressResponse} from "../Express/ExpressResponse";
-import {Cookies} from "./Cookies";
+import {Cookies} from "./Cookies/Cookies";
 import {Session} from "./Session/Session";
 import {Redirect} from "./Responses";
 
